@@ -1,0 +1,379 @@
+
+<!-- File: DreamFrame-AI/website/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 DreamFrame AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at 50% 50%, #1a0533 0%, #0a0a0f 70%);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(118, 75, 162, 0.5)); }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8892b0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .creation-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .creation-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #e6f1ff;
+        }
+
+        .creation-description {
+            font-size: 1.1rem;
+            color: #8892b0;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .image-placeholder .emoji {
+            font-size: 4rem;
+        }
+
+        .image-placeholder .text {
+            color: #8892b0;
+            font-size: 1.1rem;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .generated-time {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .powered-by {
+            color: #667eea;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Gallery section */
+        .gallery-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #667eea;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .gallery-item-info {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .gallery-item-title {
+            font-size: 0.9rem;
+            color: #e6f1ff;
+        }
+
+        .gallery-item-date {
+            font-size: 0.8rem;
+            color: #4a5568;
+            margin-top: 5px;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 40px;
+        }
+
+        .loading-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #4a5568;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.2rem; }
+            .creation-card { padding: 25px; }
+            .creation-title { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="stars" id="stars"></div>
+
+    <header class="header">
+        <h1 class="logo">🌌 DREAMFRAME AI</h1>
+        <p class="subtitle">Daily Futuristic Visions • Powered by AI</p>
+    </header>
+
+    <main class="container">
+        <div class="creation-card" id="creation-card">
+            <div class="loading" id="loading">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
+            <div id="content" style="display: none;">
+                <span class="date-badge" id="date-badge">TODAY'S CREATION</span>
+                <h2 class="creation-title" id="creation-title"></h2>
+                <p class="creation-description" id="creation-description"></p>
+                <div class="image-container">
+                    <img id="creation-image" src="" alt="AI Generated Art" />
+                </div>
+                <div class="meta-info">
+                    <span class="generated-time" id="generated-time"></span>
+                    <span class="powered-by">⚡ Amazon Bedrock + Stable Diffusion</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Built with ❤️ using Amazon Bedrock | New creation every day at 8:00 AM IST</p>
+        <p style="margin-top: 8px;">
+            <a href="https://aws.amazon.com/bedrock/">Amazon Bedrock</a> • 
+            <a href="#">GitHub</a>
+        </p>
+    </footer>
+
+    <script>
+        // Generate stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            starsContainer.appendChild(star);
+        }
+
+        // Fetch today's creation
+        const BUCKET_URL = "https://dreamframe-ai-bucket.s3.ap-south-1.amazonaws.com";
+
+        async function loadCreation() {
+            try {
+                const response = await fetch(`${BUCKET_URL}/latest.json`);
+                if (!response.ok) throw new Error('No creation yet');
+                
+                const data = await response.json();
+                
+                document.getElementById('date-badge').textContent = 
+                    new Date(data.date).toLocaleDateString('en-IN', { 
+                        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' 
+                    });
+                document.getElementById('creation-title').textContent = `"${data.title}"`;
+                document.getElementById('creation-description').textContent = data.description;
+                document.getElementById('creation-image').src = data.imageUrl;
+                document.getElementById('generated-time').textContent = 
+                    `Generated at ${new Date(data.generatedAt).toLocaleTimeString('en-IN')} IST`;
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                document.getElementById('loading').innerHTML = `
+                    <div class="image-placeholder">
+                        <span class="emoji">🎨</span>
+                        <span class="text">Today's creation is being generated...</span>
+                        <span class="text" style="font-size: 0.9rem; color: #4a5568;">Check back after 8:00 AM IST</span>
+                    </div>
+                `;
+            }
+        }
+
+        loadCreation();
+    </script>
+</body>
+</html>
+
